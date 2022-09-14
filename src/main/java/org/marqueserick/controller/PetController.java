@@ -55,7 +55,7 @@ public class PetController {
     @GET
     @Path("/buscarPorStatus")
     @Operation(summary = "buscarPorStatus", description = "Buscar Pet por status")
-    public List<PetDto> buscarPorStatus(@QueryParam("status") String status){
-        return service.buscarPorStatus(status);
+    public List<PetDto> buscarPorStatus(@QueryParam("status") PetStatus status){
+        return service.buscarPorStatus(status.getStatus());
     }
 }
