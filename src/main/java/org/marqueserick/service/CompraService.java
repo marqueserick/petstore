@@ -5,12 +5,16 @@ import org.marqueserick.factory.CompraFactory;
 import org.marqueserick.model.Compra;
 import org.marqueserick.repository.CompraRepository;
 import org.marqueserick.util.compra.CompraStatus;
+import org.marqueserick.util.pet.PetStatus;
+import org.marqueserick.util.pet.PetUtils;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.marqueserick.util.pet.PetValidador.isPetDisponivel;
@@ -45,6 +49,14 @@ public class CompraService {
         return factory.toDto(compra);
     }
 
+    public void deletar(Long id) {
+        Compra compra = buscarPorId(id,"Compra não localizada com ID informado");
+        repository.deleteById(id);
+    }
+    public Map<String, Long> retornaInventario() {
+        return PetUtils.retornaInventario();
+    }
+
     private Compra buscarPorId(Long id, String mensagem) {
         Optional<Compra> compra = repository.findByIdOptional(id);
         if(compra.isEmpty())throw new RuntimeException(mensagem);
@@ -61,5 +73,4 @@ public class CompraService {
         Long id = compra.getPet().getId();
         if(!isPetDisponivel(id)) throw new RuntimeException("Pet não disponível");
     }
-
 }

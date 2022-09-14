@@ -41,9 +41,17 @@ public class CompraController {
         return service.adicionar(compra);
     }
 
+    @DELETE
+    @Path("/compras/{id}")
+    @Operation(summary = "deletarCompra", description = "Deletar uma compra")
+    public void deletar(@PathParam("id") Long id){
+        service.deletar(id);
+    }
+
     @GET
     @Path("/inventario")
-    public Map<String, Integer> retornaInventario(){
-        return null;
+    @Operation(summary = "retornaInventario", description = "Listar quantidade de Pets por status")
+    public Map<String, Long> retornaInventario(){
+        return service.retornaInventario();
     }
 }

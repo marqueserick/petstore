@@ -11,4 +11,7 @@ public class PetRepository implements PanacheRepositoryBase<Pet, Long> {
     public List<Pet> findByStatus(String status){
         return this.list("STATUS", status);
     }
+    public Long getQuantidadePorStatus(String status){
+        return this.count("STATUS", status);
+    }
 }
