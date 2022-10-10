@@ -22,7 +22,7 @@ public class Compra implements Serializable {
     @Column(name = "compra_id")
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "pet_id")
     private Pet pet;
 

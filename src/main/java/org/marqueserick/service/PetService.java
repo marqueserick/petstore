@@ -1,14 +1,19 @@
 package org.marqueserick.service;
 
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
+import org.marqueserick.dto.CategoriaDto;
 import org.marqueserick.dto.PetDto;
 import org.marqueserick.factory.PetFactory;
+import org.marqueserick.model.Categoria;
 import org.marqueserick.model.Pet;
+import org.marqueserick.repository.CategoriaRepository;
 import org.marqueserick.repository.PetRepository;
 import org.marqueserick.util.pet.PetStatus;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,5 +70,14 @@ public class PetService {
         return pet.get();
     }
 
+    public List<PetStatus> todosStatus() {
+        String todosStatusEmUso = "SELECT DISTINCT P FROM Pet P GROUP BY STATUS";
+        PanacheQuery<Pet> pets = repository.find(todosStatusEmUso);
+        List<PetStatus> status = new ArrayList<>();
+        for (Pet pet : pets.list()) {
+            status.add(pet.getStatus());
+        }
 
+        return status;
+    }
 }

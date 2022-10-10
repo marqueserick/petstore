@@ -58,4 +58,11 @@ public class PetController {
     public List<PetDto> buscarPorStatus(@QueryParam("status") PetStatus status){
         return service.buscarPorStatus(status.getStatus());
     }
+
+    @GET
+    @Path("/status")
+    @Operation(summary = "status", description = "Retorna todos os status com pets cadastrados")
+    public List<PetStatus> todosStatus(){
+        return service.todosStatus();
+    }
 }
